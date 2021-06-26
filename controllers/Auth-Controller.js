@@ -13,7 +13,7 @@ const SignUp = async (req, res, next) => {
       new HttpError("Invalid inputs passed, please check your data.", 422)
     );
   }
-  const { name, email, password } = req.body;
+  const { fname,lname, email, password,role,content } = req.body;
 
   let existingUser;
   try {
@@ -40,9 +40,11 @@ const SignUp = async (req, res, next) => {
     return next(error);
   }
   const createdUser = new User({
-    name,
+    fname,
+    lname,
     email,
-    image: "http://",
+    content,
+    role,
     password: hashedPassword,
   });
 
@@ -113,7 +115,7 @@ const Login = async (req, res, next) => {
     const error = new HttpError("Login in failed,Please try again", 500);
     return next(error);
   }
-  res.json({userId:existingUser.id,email:existingUser.email,token:token});
+  res.json({userId:existingUser.id,email:existingUser.email,token:token,role:existingUser.role});
 };
 
 module.exports = {

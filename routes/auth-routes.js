@@ -27,6 +27,7 @@ router.post('/login',authController.Login)
 
 //This route below routes check is available token
 router.use(checkAuth)
+
 router.get('/protected',(req,res) =>{
     return res.status(200).json({
         message:"Hello"
