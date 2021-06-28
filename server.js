@@ -1,3 +1,4 @@
+const fs = require('fs')
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
@@ -18,6 +19,13 @@ app.use((req,res,next) =>{
 })
 
 app.use((error,req,res,next) =>{
+
+    if(req.file){
+        fs.unlink(req.file.path,(err) =>{
+            console.log(err)
+        })
+    }
+
     if(res.headerSent){
         return next(error)
     }

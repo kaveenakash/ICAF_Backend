@@ -39,33 +39,37 @@ const SignUp = async (req, res, next) => {
     const error = new HttpError("could not create user, Please try again", 500);
     return next(error);
   }
+  console.log(req.file.path)
   const createdUser = new User({
-    fname,
-    lname,
-    email,
-    content,
-    role,
+    fname:fname,
+    lname:lname,
+    email:email,
+    content:content,
+    role:role,
+    image:req.file.path,
     password: hashedPassword,
   });
 
+  
   try {
     await createdUser.save();
   } catch (err) {
     const error = new HttpError("Signing Up failed,Please try again", 500);
     return next(error);
   }
-
+  
   let token;
   try {
     token = await jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
       "supersecret_dont_share",
       { expiresIn: "1h" }
-    );
-  } catch (err) {
-    const error = new HttpError("Signing Up failed,Please try again", 500);
-    return next(error);
-  }
+      );
+    } catch (err) {
+      const error = new HttpError("Signing Up failed,Please try again", 500);
+      return next(error);
+    }
+
   res
     .status(201)
     .json({ userId: createdUser.id, email: createdUser.email, token: token });
