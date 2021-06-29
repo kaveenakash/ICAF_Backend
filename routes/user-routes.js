@@ -2,10 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 const { check } = require("express-validator");
-const authController = require('../controllers/Auth-Controller')
+const userController = require('../controllers/user-controller')
 const checkAuth = require('../middleware/check-auth')
 
-const fileUpload = require('../middleware/file-upload')
 //  router.get('/',(req,res,next) =>{
 //      console.log('Get request in place')
 //      res.json({message:"It Works"})
@@ -24,8 +23,7 @@ const fileUpload = require('../middleware/file-upload')
 //  router.post('/',check('title').not().isEmpty(),check('description).isLength({min:5}),controller)
 
 
-router.post('/signUp',fileUpload.single('document'),authController.SignUp)
-router.post('/login',authController.Login)
+router.post('/signUp',userController.UserSignUp)
 
 //This route below routes check is available token
 router.use(checkAuth)

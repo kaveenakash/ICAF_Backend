@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 const { check } = require("express-validator");
-const authController = require('../controllers/Auth-Controller')
+const workshopController = require('../controllers/workshop-controller')
 const checkAuth = require('../middleware/check-auth')
 
 const fileUpload = require('../middleware/file-upload')
@@ -24,8 +24,7 @@ const fileUpload = require('../middleware/file-upload')
 //  router.post('/',check('title').not().isEmpty(),check('description).isLength({min:5}),controller)
 
 
-router.post('/signUp',fileUpload.single('document'),authController.SignUp)
-router.post('/login',authController.Login)
+router.post('/workshop-signUp',fileUpload.single('document'),workshopController.WorkShopSignUp)
 
 //This route below routes check is available token
 router.use(checkAuth)

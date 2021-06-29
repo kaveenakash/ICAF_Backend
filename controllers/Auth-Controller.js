@@ -41,12 +41,12 @@ const SignUp = async (req, res, next) => {
   }
   console.log(req.file.path)
   const createdUser = new User({
-    fname:fname,
-    lname:lname,
+    name:fname,
+    title:lname,
     email:email,
     content:content,
     role:role,
-    image:req.file.path,
+    document:req.file.path,
     password: hashedPassword,
   });
 
