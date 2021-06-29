@@ -8,6 +8,7 @@ const app = express();
 const authRoutes = require('./routes/auth-routes');
 const workshopRoutes = require('./routes/workshop-routes')
 const userRoutes = require('./routes/user-routes')
+const messageRoutes = require('./routes/message-routes')
 const HttpError = require('./models/http-error');
 
 app.use(cors())
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use('/api/auth',authRoutes)
 app.use('/api/workshop',workshopRoutes)
 app.use('/api/user',userRoutes)
+app.use('/api/message',messageRoutes)
 
 app.use((req,res,next) =>{
     const error = new HttpError('could not find this route',404)
