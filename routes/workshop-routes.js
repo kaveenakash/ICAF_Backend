@@ -28,6 +28,8 @@ router.post('/workshop-signUp',fileUpload.single('document'),workshopController.
 router.get('/get-workshop-data',workshopController.GetAllWorkshopData)
 router.put('/workshop-approve',workshopController.ApproveWorkshop)
 router.delete('/workshop-delete',workshopController.DeleteWorkshop)
+
+
 //This route below routes check is available token
 router.use(checkAuth)
 

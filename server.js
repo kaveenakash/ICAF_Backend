@@ -51,7 +51,7 @@ mongoose
 .then(() =>{
     console.log('Database Estabilished')
     app.listen(9090,() =>{
-        console.log('Server Started ',8000)
+        console.log('Server Started ',9090)
     })
 })
 .catch(err =>{
