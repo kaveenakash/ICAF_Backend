@@ -101,14 +101,35 @@ const ApproveWorkshop = async (req, res, next) => {
     let response = await User.findOneAndUpdate(filter, update, {
       new: true,
     });
-    return res.status(200).json({message:"successful"})
   } catch (err) {
     
     const error = new HttpError("Unexpected Error Occured", 503);
     return next(error);
   }
-
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'icafsliit2021@gmail.com',
+      pass: '#icaf225'
+    }
+  });
   
+  var mailOptions = {
+    from: 'icafsliit2021@gmail.com',
+    to: 'kaveenakash1998@gmail.com',
+    subject: 'Workshop Proposal',
+    text: 'Your Proposal Approved'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  
+  return res.status(200).json({message:"successful"})
 };
 
 
