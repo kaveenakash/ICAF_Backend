@@ -46,6 +46,7 @@ const WorkShopSignUp = async (req, res, next) => {
       title:title,
       email:email,
       content:content,
+      status:"pending",
       role:role,
       document:req.file.path,
       password: hashedPassword,
@@ -75,8 +76,22 @@ const WorkShopSignUp = async (req, res, next) => {
       .status(201)
       .json({ userId: createdUser.id, email: createdUser.email, token: token,role:role });
   };
+
+
+
+  const GetAllWorkshopData = async(req,res,next) =>{
+
+    try {
+      const response = await User.find({role:"workshop-conductor"})
+      return res.status(200).send(response)
+    } catch (err) {
+      const error = new HttpError("Unexpected Error Occured", 500);
+      return next(error);
+    }
+  }
   
 
   module.exports = {
-    WorkShopSignUp
+    WorkShopSignUp,
+    GetAllWorkshopData
   }

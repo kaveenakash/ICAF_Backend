@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const app = express();
+const path = require('path')
 
 
 const authRoutes = require('./routes/auth-routes');
@@ -13,10 +14,15 @@ const HttpError = require('./models/http-error');
 
 app.use(cors())
 app.use(express.json())
+
+app.use('/uploads/documents',express.static(path.join('uploads','documents')))
+
 app.use('/api/auth',authRoutes)
 app.use('/api/workshop',workshopRoutes)
 app.use('/api/user',userRoutes)
 app.use('/api/message',messageRoutes)
+
+
 
 app.use((req,res,next) =>{
     const error = new HttpError('could not find this route',404)

@@ -25,6 +25,8 @@ const fileUpload = require('../middleware/file-upload')
 
 
 router.post('/workshop-signUp',fileUpload.single('document'),workshopController.WorkShopSignUp)
+router.get('/get-workshop-data',workshopController.GetAllWorkshopData)
+
 
 //This route below routes check is available token
 router.use(checkAuth)
