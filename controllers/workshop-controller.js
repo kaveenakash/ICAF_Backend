@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const uuid = require("uuid");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const nodemailer = require('nodemailer');
 //SignUp function
 const WorkShopSignUp = async (req, res, next) => {
   const errors = validationResult(req);
@@ -121,6 +121,34 @@ const DeleteWorkshop = async(req,res,next) =>{
     const error = new HttpError("Unexpected Error Occured", 503);
     return next(error);
   }
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'icafsliit2021@gmail.com',
+      pass: '#icaf225'
+    }
+  });
+  
+  var mailOptions = {
+    from: 'icafsliit2021@gmail.com',
+    to: 'kaveenakash1998@gmail.com',
+    subject: 'Workshop Proposal',
+    text: 'Your Proposal Declined'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+
+
+
+
+
   return res.status(200).json({"message":"deleted workshop"})
 }
 
