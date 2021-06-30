@@ -92,7 +92,7 @@ const GetAllWorkshopData = async (req, res, next) => {
 
 const ApproveWorkshop = async (req, res, next) => {
   const  {id}  = req.body
-  console.log(id)
+  
 
   const filter = { _id: id };
   const update = { status: "approved" };
@@ -114,7 +114,7 @@ const ApproveWorkshop = async (req, res, next) => {
 
 const DeleteWorkshop = async(req,res,next) =>{
   const {id} = req.body
-  console.log(id)
+ 
   try {
     const response = await User.findOneAndRemove({_id:id})
   } catch (err) {
@@ -124,9 +124,24 @@ const DeleteWorkshop = async(req,res,next) =>{
   return res.status(200).json({"message":"deleted workshop"})
 }
 
+
+const GetAllApprovedWorkshops = async(req,res,next) =>{
+
+  try {
+    const data = await User.find({status:'approved'})
+  
+    return res.status(200).send(data)
+  } catch (err) {
+    const error = new HttpError("Unexpected Error Occured", 503);
+    return next(error);
+  }
+}
+
+
 module.exports = {
   WorkShopSignUp,
   GetAllWorkshopData,
   ApproveWorkshop,
-  DeleteWorkshop
+  DeleteWorkshop,
+  GetAllApprovedWorkshops
 };

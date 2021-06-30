@@ -18,8 +18,12 @@ app.use(express.json())
 app.use('/uploads/documents',express.static(path.join('uploads','documents')))
 
 app.use('/api/auth',authRoutes)
+
+//Workshop APIS 
 app.use('/api/workshop',workshopRoutes)
+
 app.use('/api/user',userRoutes)
+
 app.use('/api/message',messageRoutes)
 
 
